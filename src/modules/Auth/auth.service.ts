@@ -6,6 +6,7 @@ import { User } from '../../DB/Schemas/user.schema';
 import { DBMethods } from '../../DB/DBMethods';
 import * as bcrypt from 'bcryptjs'
 import { JwtService } from '@nestjs/jwt';
+import { AuthReq } from '../../Types/Auth';
 
 
 @Injectable()
@@ -44,10 +45,16 @@ export class AuthService {
         }
         const token = this._jwtService.sign({
             email : userExist['email'],
-            id: userExist['id'],
+            id: userExist['_id'],
         }, {
             secret : 'test-token'
         });
         return response.status(200).json({ message : "Done", token});
+    }
+
+    async getUserDataService(request:AuthReq, response:Response) : Promise<Response> {
+        const { _id } = request.user;
+        const user = await this._dbMethod.findOneDocument(this._userModel, { _id});
+        return response.status(200).json({ message: 'done', user });
     }
 }
