@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Query, Request, Response } from "@nestjs/common";
+import { Controller, Post, Request, Response } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { Request as REQUEST, Response as RESPONSE } from "express";
 
@@ -9,8 +9,12 @@ export class AuthControler {
     constructor(private readonly authService: AuthService){}
 
     @Post('signup')
-    // signUp(@Body() body: any, @Query() query:any ) : string { first way
     signUp(@Request() request: REQUEST, @Response() response:RESPONSE ) : Promise<RESPONSE> {
         return this.authService.signUpService(request, response);
     }
+    @Post('login')
+    loginService(@Request() request: REQUEST, @Response() response:RESPONSE ) : Promise<RESPONSE> {
+        return this.authService.loginService(request, response);
+    }
+    
 }
