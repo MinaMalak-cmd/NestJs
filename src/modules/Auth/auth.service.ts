@@ -17,7 +17,10 @@ export class AuthService {
         private _dbMethod: DBMethods,
         private _jwtService: JwtService
     ){ }
-    async signUpService(body:signupBodyDto, response:Response) : Promise<Response> {
+    // async signUpService(body:signupBodyDto, response:Response) : Promise<Response> {
+    // async signUpService(request:Request, response:Response) : Promise<Response> {
+    async signUpService(body:any, response:Response) : Promise<Response> {
+        // const { name, email, password, gender } = request.body;
         const { name, email, password, gender } = body;
         // const user = await this._userModel.create({ name, email, password, gender });
         const isEmailExist = await this._dbMethod.findOneDocument(this._userModel, { email});
