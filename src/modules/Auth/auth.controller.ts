@@ -8,9 +8,9 @@ import { Request as REQUEST, Response as RESPONSE } from "express";
 export class AuthControler {
     constructor(private readonly authService: AuthService){}
 
-    @Post('/signup')
+    @Post('signup')
     // signUp(@Body() body: any, @Query() query:any ) : string { first way
-    signUp(@Request() request: REQUEST, @Response() response:RESPONSE ) : string {
+    signUp(@Request() request: REQUEST, @Response() response:RESPONSE ) : Promise<RESPONSE> {
         return this.authService.signUp(request, response);
     }
 }
