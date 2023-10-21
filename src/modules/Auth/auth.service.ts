@@ -7,6 +7,7 @@ import { DBMethods } from '../../DB/DBMethods';
 import * as bcrypt from 'bcryptjs'
 import { JwtService } from '@nestjs/jwt';
 import { AuthReq } from '../../Types/Auth';
+import { signupBodyDto } from './auth.dto';
 
 
 @Injectable()
@@ -16,8 +17,8 @@ export class AuthService {
         private _dbMethod: DBMethods,
         private _jwtService: JwtService
     ){ }
-    async signUpService(request:Request, response:Response) : Promise<Response> {
-        const { name, email, password, gender } = request.body;
+    async signUpService(body:signupBodyDto, response:Response) : Promise<Response> {
+        const { name, email, password, gender } = body;
         // const user = await this._userModel.create({ name, email, password, gender });
         const isEmailExist = await this._dbMethod.findOneDocument(this._userModel, { email});
         if(isEmailExist){
