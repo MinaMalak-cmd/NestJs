@@ -11,6 +11,6 @@ export class AuthControler {
     @Post('signup')
     // signUp(@Body() body: any, @Query() query:any ) : string { first way
     signUp(@Request() request: REQUEST, @Response() response:RESPONSE ) : Promise<RESPONSE> {
-        return this.authService.signUp(request, response);
+        return this.authService.signUpService(request, response);
     }
 }
